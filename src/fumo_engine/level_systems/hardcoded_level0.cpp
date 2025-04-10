@@ -12,8 +12,8 @@ void make_some_rects();
 void screen_border_lines();
 
 void debug_spawn_level_objects() {
-    // make_some_rects();
-    // screen_border_lines();
+    make_some_rects();
+    screen_border_lines();
     const auto& planet_factory = global->ECS->get_system<LevelEntityFactory>();
 
     {
