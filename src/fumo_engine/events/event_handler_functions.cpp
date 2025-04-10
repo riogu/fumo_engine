@@ -10,6 +10,7 @@ namespace EventHandler {
 void jumped(const Event& event) {
     auto& player_body = global->ECS->get_component<Body>(event.entity_id);
     auto& player_state = global->ECS->get_component<EntityState>(event.entity_id);
+
     if (!player_state.can_jump) {
         return;
     }
@@ -26,7 +27,8 @@ void jumped(const Event& event) {
     player_state.on_ground = false;
     player_state.can_jump = false;
     // player_state.falling = false;
-    BodyMovement::jump(player_body, event.entity_id);
+// FIXME:: write the new code for jumping
+    // BodyMovement::jump(player_body, event.entity_id);
 }
 
 void idle(const Event& event) {

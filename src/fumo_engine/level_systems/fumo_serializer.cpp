@@ -133,9 +133,7 @@
 //
 //     for (ComponentId id = 0; id < MAX_COMPONENTS; ++id) {
 //         if (component_mask & (1 << id)) {
-//             FumoSerializer::deserialize_component_by_id(entity_id,
-//                                                         id,
-//                                                         in_archive);
+//             FumoSerializer::deserialize_component_by_id(entity_id, id, in_archive);
 //         }
 //     }
 // }

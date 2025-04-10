@@ -15,6 +15,7 @@ void register_all_to_ECS() {
     register_systems();
 }
 
+
 // Body
 // Circle
 // AnimationInfo
@@ -29,6 +30,7 @@ void register_all_to_ECS() {
 // OutlineRectFlag
 // EntityState
 // MovedEventData
+
 
 void register_components() {
     global->ECS->register_component<Body>();
@@ -46,8 +48,6 @@ void register_components() {
     global->ECS->register_component<EntityState>();
     global->ECS->register_component<MovedEventData>();
 
-    // // NOTE: unsure if this is the best approach to doing this
-    // global->ECS->register_component<Event>();
 
     // global->ECS->register_component<Level1Tag>();
     // global->ECS->register_component<OnScreen>();
@@ -62,29 +62,25 @@ void register_systems_scheduled() {
     //--------------------------------------------------------------------------------------
     // actual game logic
     global->ECS->add_unregistered_system<PlayerInputHandler, 0>();
-    global->ECS->add_unregistered_system<JumpHandler, 1>();
+    // global->ECS->add_unregistered_system<JumpHandler, 1>();
     global->ECS->add_unregistered_system<GravityUpdater, 2>();
 
     global->ECS->register_system<GravityFieldHandler, 3>(EntityQuery {
         .component_mask = global->ECS->make_component_mask<GravFieldFlag>(),
         .component_filter = Filter::All});
 
-    global->ECS->register_system<PlayerCollisionRunner, 4>(
-        EntityQuery {.component_mask =
-                         global->ECS->make_component_mask<ColliderObjectFlag>(),
-                     .component_filter = Filter::Any});
+    global->ECS->register_system<PlayerCollisionRunner, 4>(EntityQuery {
+        .component_mask = global->ECS->make_component_mask<ColliderObjectFlag>(),
+        .component_filter = Filter::Any});
 
     global->ECS->register_system<StateHandler, MAX_PRIORITY - 1>(EntityQuery {
         .component_mask = global->ECS->make_component_mask<EntityState>(),
-        .component_filter = Filter::All});
-
+        .component_filter = Filter::All}); 
     //--------------------------------------------------------------------------------------
     // misc systems
-
     global->ECS->register_system<DebugLevelEditor, 5>(EntityQuery {
         .component_mask =
-            global->ECS
-                ->make_component_mask<GravFieldFlag, ColliderObjectFlag>(),
+            global->ECS->make_component_mask<GravFieldFlag, ColliderObjectFlag>(),
         .component_filter = Filter::Any});
     // global->ECS->register_system<TimerHandler, 7>(
     //     EntityQuery{.component_mask = global->ECS->make_component_mask<Timer>(),
@@ -92,14 +88,12 @@ void register_systems_scheduled() {
 
     //--------------------------------------------------------------------------------------
     // render everything at the end
-    global->ECS->register_system<ObjectRenderer, MAX_PRIORITY>(
-        EntityQuery {.component_mask =
-                         global->ECS->make_component_mask<ColliderObjectFlag>(),
-                     .component_filter = Filter::All});
+    global->ECS->register_system<ObjectRenderer, MAX_PRIORITY>(EntityQuery {
+        .component_mask = global->ECS->make_component_mask<ColliderObjectFlag>(),
+        .component_filter = Filter::All});
 
     global->ECS->register_system<AnimationRenderer, MAX_PRIORITY>(EntityQuery {
-        .component_mask =
-            global->ECS->make_component_mask<Body, AnimationInfo>(),
+        .component_mask = global->ECS->make_component_mask<Body, AnimationInfo>(),
         .component_filter = Filter::All});
 
     global->ECS->register_system<GravFieldRenderer, MAX_PRIORITY>(EntityQuery {
@@ -112,8 +106,7 @@ void register_systems_scheduled() {
 }
 
 void register_unregistered_systems_unscheduled() {
-    global->ECS->add_unregistered_system_unscheduled<SchedulerSystemECS>(
-        global->ECS);
+    global->ECS->add_unregistered_system_unscheduled<SchedulerSystemECS>(global->ECS);
     // global->ECS->add_unregistered_system_unscheduled<GravityBufferHandler>();
     // global->ECS->add_unregistered_system_unscheduled<EntireAnimationPlayer>();
     global->ECS->add_unregistered_system_unscheduled<LevelEntityFactory>();

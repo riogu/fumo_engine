@@ -23,7 +23,7 @@ struct JumpHandler: System {
     // wrapper for hard coded jump
     // (want to call it every frame)
     void sys_call() override {
-        BodyMovement::hard_coded_jump();
+        // BodyMovement::hard_coded_jump();
     }
 };
 

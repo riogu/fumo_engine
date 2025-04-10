@@ -69,8 +69,11 @@ void GravityUpdater::update_gravity(Body& body) {
     // --------------------------------------------------------------------
 
     // --------------------------------------------------------------------
-    Vector2 acceleration = gravity_direction * gravity_strength;
-    player_body.velocity += acceleration;
+    // FIXME:: replace gravity updating so that we have smoothing or
+    // at least dont add up a fixed value
+    //
+    // Vector2 acceleration = gravity_direction * gravity_strength;
+    // player_body.velocity += acceleration;
 }
 
 void ParallelGravityField::update_gravity(Body& player_body) {
